@@ -4,17 +4,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>404 - Page Not Found | Tool Titan API</title>
+    <meta name="description" content="The requested page could not be found on Tool Titan API platform.">
     <link rel="stylesheet" href="styles.css">
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body class="not-found-body">
-    <div class="glass-card not-found-container">
-        <h1>404</h1>
-        <p>Oops! The page you are looking for doesn't exist or has been moved.</p>
-        <a href="index.html" class="btn" style="margin-top: 1.5rem;">
-            <i data-lucide="arrow-left"></i> Go Back to Home
-        </a>
-    </div>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="container nav-content">
+            <a href="index.html" class="logo">
+                <span class="main-logo">TOOL TITAN</span>
+                <span class="sub-logo">API</span>
+            </a>
+            <button class="hamburger-btn" onclick="toggleNav()" aria-label="Toggle Navigation">
+                <i data-lucide="menu"></i>
+            </button>
+            <div class="nav-links" id="nav-links">
+                <ul>
+                    <li><a href="index.html"><i data-lucide="home"></i> Home</a></li>
+                    <li><a href="about.html"><i data-lucide="info"></i> About</a></li>
+                    <li><a href="projects.html"><i data-lucide="grid"></i> Projects</a></li>
+                    <li><a href="contact.html"><i data-lucide="mail"></i> Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Section -->
+    <main class="container" style="display: flex; justify-content: center; align-items: center; min-height: 65vh;">
+        <div class="glass-card not-found-container" style="padding: 3.5rem 2.5rem; text-align: center; max-width: 550px; width: 100%;">
+            <div style="width: 64px; height: 64px; border-radius: 50%; background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.3); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; color: #FCA5A5;">
+                <i data-lucide="alert-triangle" size="32"></i>
+            </div>
+            <h1 class="gradient-text" style="font-size: 5rem; margin-bottom: 0.5rem;">404</h1>
+            <h2 style="font-size: 1.5rem; margin-top: 0; margin-bottom: 1rem; color: var(--text);">Page Not Found</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 2rem;">
+                Oops! The page or resource you are looking for doesn't exist or has been relocated within our API suite.
+            </p>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="index.html" class="btn">
+                    <i data-lucide="arrow-left"></i> Return Home
+                </a>
+                <a href="projects.html" class="btn btn-secondary">
+                    <i data-lucide="grid"></i> View Projects
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>© 2025 Tool Titan API Tools. All Rights Reserved.</p>
+        </div>
+    </footer>
 
     <script src="scripts.js"></script>
     <script>
