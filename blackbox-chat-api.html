@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blackbox AI Chat - Tool Titan API</title>
+    <meta name="description" content="REST API documentation for Blackbox AI Chat integration.">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="assets/css/blackbox-chat-api.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="container nav-content">
+            <a href="index.html" class="logo">
+                <span class="main-logo">TOOL TITAN</span>
+                <span class="sub-logo">API</span>
+            </a>
+            <button class="hamburger-btn" onclick="toggleNav()" aria-label="Toggle Navigation">
+                <i data-lucide="menu"></i>
+            </button>
+            <div class="nav-links" id="nav-links">
+                <ul>
+                    <li><a href="index.html"><i data-lucide="home"></i> Home</a></li>
+                    <li><a href="about.html"><i data-lucide="info"></i> About</a></li>
+                    <li><a href="projects.html" class="active"><i data-lucide="grid"></i> Projects</a></li>
+                    <li><a href="contact.html"><i data-lucide="mail"></i> Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Section -->
+    <main class="container">
+        <section class="glass-card introduction" style="padding: 2.5rem; margin-bottom: 2.5rem;">
+            <div style="display: inline-flex; align-items: center; gap: 0.5rem; color: var(--accent); font-weight: 600; margin-bottom: 1rem;">
+                <i data-lucide="bot"></i> ARTIFICIAL INTELLIGENCE API
+            </div>
+            <h1 class="gradient-text">Blackbox AI Chat API</h1>
+
+            <p>
+                The <b>Blackbox AI Chat API</b> empowers applications to execute natural language queries and code assist prompts seamlessly. Send any string query and receive instant intelligent responses.
+            </p>
+
+            <!-- API URL -->
+            <p style="margin-top: 1.5rem; margin-bottom: 0.4rem; font-weight: 600; color: var(--text);"><i data-lucide="terminal"></i> API Endpoint:</p>
+            <div class="api-url-container">
+                <code id="blackbox-url">https://tooltitan.vercel.app/blackbox?prompt=</code>
+                <button class="copy-btn" onclick="copyToClipboard('#blackbox-url')"><i data-lucide="copy" size="14"></i> Copy</button>
+            </div>
+
+            <h2 style="margin-top: 2rem;">How to Use the API</h2>
+            <ol style="margin-left: 1.25rem; margin-bottom: 2rem;">
+                <li>Dispatch an HTTP GET request to the endpoint with your query string appended to the <code>prompt</code> parameter.</li>
+                <li>Example request URL: 
+                    <code style="background: rgba(255,255,255,0.1); padding: 0.2rem 0.6rem; border-radius: 6rem; font-size: 0.9rem; color: var(--accent);">https://tooltitan.vercel.app/blackbox?prompt=Your+Prompt</code>
+                </li>
+                <li>Receive structured JSON containing the AI model's response.</li>
+            </ol>
+
+            <h3>Example Responses</h3>
+
+            <!-- Valid Response Example -->
+            <div class="response-section">
+                <h4 style="color: #6EE7B7; display: flex; align-items: center; gap: 0.5rem;"><i data-lucide="check-circle" size="18"></i> Successful AI Response (200 OK)</h4>
+                <pre class="response">
+{
+    "status": "success",
+    "http_code": 200,
+    "response": "Hello! How can I assist you today?",
+    "dev": "@AftabKabir"
+}
+                </pre>
+
+                <h4 style="color: #FCA5A5; display: flex; align-items: center; gap: 0.5rem; margin-top: 1.5rem;"><i data-lucide="alert-triangle" size="18"></i> Connection Exception Response</h4>
+                <pre class="response">
+{
+    "message": "Unable to connect to the AI server.",
+    "status": "error"
+}
+                </pre>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>© 2025 Tool Titan API Tools. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="scripts.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

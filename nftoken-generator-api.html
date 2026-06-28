@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFToken Generator API - Tool Titan API</title>
+    <meta name="description" content="Netflix Cookies to One-Click Login URL Generator API - Coming Soon.">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="container nav-content">
+            <a href="index.html" class="logo">
+                <span class="main-logo">TOOL TITAN</span>
+                <span class="sub-logo">API</span>
+            </a>
+            <button class="hamburger-btn" onclick="toggleNav()" aria-label="Toggle Navigation">
+                <i data-lucide="menu"></i>
+            </button>
+            <div class="nav-links" id="nav-links">
+                <ul>
+                    <li><a href="index.html"><i data-lucide="home"></i> Home</a></li>
+                    <li><a href="about.html"><i data-lucide="info"></i> About</a></li>
+                    <li><a href="projects.html" class="active"><i data-lucide="grid"></i> Projects</a></li>
+                    <li><a href="contact.html"><i data-lucide="mail"></i> Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Section -->
+    <main class="container">
+        <section class="glass-card" style="padding: 3.5rem 2.5rem; text-align: center; max-width: 800px; margin: 0 auto;">
+            <div class="status-badge coming-soon" style="margin: 0 auto 1.5rem; font-size: 0.9rem; padding: 0.4rem 1rem;">
+                <i data-lucide="clock" size="16"></i> Status: Coming Soon
+            </div>
+            <h1 class="gradient-text">NFToken Generator API</h1>
+            <p style="font-size: 1.25rem; color: var(--text); margin-bottom: 1.5rem;">
+                This API is currently under active development. Stay tuned for upcoming updates!
+            </p>
+            <p style="max-width: 600px; margin: 0 auto 2rem; color: var(--text-secondary);">
+                Our team is building an automated tool to convert Netflix session cookies directly into instant one-click login token URLs effortlessly.
+            </p>
+
+            <p style="margin-bottom: 0.4rem; font-weight: 600; color: var(--text); text-align: left;"><i data-lucide="terminal"></i> API Endpoint:</p>
+            <div class="api-url-container">
+                <code id="nftoken-url">https://tooltitan.vercel.app/nftoken</code>
+                <button class="copy-btn" onclick="copyToClipboard('#nftoken-url')"><i data-lucide="copy" size="14"></i> Copy</button>
+            </div>
+
+            <div style="background: rgba(11, 17, 32, 0.8); border: 1px dashed rgba(255,255,255,0.2); padding: 1.5rem; border-radius: 14px; margin-bottom: 2.5rem; text-align: left;">
+                <h4 style="color: #FBBF24; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem;">
+                    <i data-lucide="construction" size="18"></i> Endpoint Response Preview
+                </h4>
+                <pre class="response" style="margin: 0;">
+{
+    "status": "coming_soon",
+    "message": "API under development. Stay tuned for updates!",
+    "expected_release": "Q3 2026",
+    "dev": "@Aftabkabir"
+}
+                </pre>
+            </div>
+
+            <a href="projects.html" class="btn">
+                <i data-lucide="arrow-left"></i> Back to Projects
+            </a>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>© 2025 Tool Titan API Tools. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="scripts.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seedr Combo Checker - Tool Titan API</title>
+    <meta name="description" content="Documentation and endpoint guide for Seedr Combo Checker API.">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="assets/css/seedr-api.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="container nav-content">
+            <a href="index.html" class="logo">
+                <span class="main-logo">TOOL TITAN</span>
+                <span class="sub-logo">API</span>
+            </a>
+            <button class="hamburger-btn" onclick="toggleNav()" aria-label="Toggle Navigation">
+                <i data-lucide="menu"></i>
+            </button>
+            <div class="nav-links" id="nav-links">
+                <ul>
+                    <li><a href="index.html"><i data-lucide="home"></i> Home</a></li>
+                    <li><a href="about.html"><i data-lucide="info"></i> About</a></li>
+                    <li><a href="projects.html" class="active"><i data-lucide="grid"></i> Projects</a></li>
+                    <li><a href="contact.html"><i data-lucide="mail"></i> Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Section -->
+    <main class="container">
+        <section class="glass-card introduction" style="padding: 2.5rem; margin-bottom: 2.5rem;">
+            <div style="display: inline-flex; align-items: center; gap: 0.5rem; color: var(--accent); font-weight: 600; margin-bottom: 1rem;">
+                <i data-lucide="folder-search"></i> ACCOUNT AUTOMATION API
+            </div>
+            <h1 class="gradient-text">Seedr Combo Checker API</h1>
+            <p>
+                The <b>Seedr Combo Checker API</b> is a high-performance verification endpoint for <b>Seedr login credentials</b>. It delivers comprehensive account telemetry including subscription tier, total storage limits, free bandwidth, and geolocation.
+            </p>
+
+            <h3 style="margin-top: 1.5rem; margin-bottom: 1rem; color: var(--text);">Key Capabilities</h3>
+            <ul style="max-width: 100%; margin-left: 0; list-style-type: none; padding-left: 0;">
+                <li style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;"><i data-lucide="check-circle-2" style="color: var(--success); flex-shrink: 0;"></i> Check the validity of Seedr account combos (email:password).</li>
+                <li style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;"><i data-lucide="hard-drive" style="color: var(--accent); flex-shrink: 0;"></i> Retrieve detailed storage capacity metrics and active subscription plan types.</li>
+                <li style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;"><i data-lucide="zap" style="color: #FBBF24; flex-shrink: 0;"></i> Free unlimited API query access with optimized response times.</li>
+            </ul>
+
+            <div style="margin-top: 2rem;">
+                <p style="margin-bottom: 0.4rem; font-weight: 600; color: var(--text);"><i data-lucide="link"></i> Base URL:</p>
+                <div class="api-url-container">
+                    <code id="base-url">https://tooltitan.vercel.app/</code>
+                    <button class="copy-btn" onclick="copyToClipboard('#base-url')"><i data-lucide="copy" size="14"></i> Copy</button>
+                </div>
+
+                <p style="margin-bottom: 0.4rem; font-weight: 600; color: var(--text);"><i data-lucide="terminal"></i> Seedr Endpoint URL:</p>
+                <div class="api-url-container">
+                    <code id="seedr-url">https://tooltitan.vercel.app/seedr?combo=email:password</code>
+                    <button class="copy-btn" onclick="copyToClipboard('#seedr-url')"><i data-lucide="copy" size="14"></i> Copy</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="glass-card usage-info" style="padding: 2.5rem;">
+            <h2>How to Use the API</h2>
+            <p>Integration steps for calling the Seedr Combo Checker API:</p>
+            <ol style="margin-left: 1.25rem; margin-bottom: 2rem;">
+                <li>Prepare a target credential combo in standard <code>email:password</code> format.</li>
+                <li>Dispatch an HTTP GET request to the designated endpoint:</li>
+
+                <div class="api-url-container" style="margin: 1rem 0;">
+                    <code id="seedr-url-usage">https://tooltitan.vercel.app/seedr?combo=email:password</code>
+                    <button class="copy-btn" onclick="copyToClipboard('#seedr-url-usage')"><i data-lucide="copy" size="14"></i> Copy</button>
+                </div>
+
+                <li>Parse the structured JSON payload returned by the server.</li>
+            </ol>
+
+            <h3>Example Responses</h3>
+            <div class="response-section">
+                <h4 style="color: #6EE7B7; display: flex; align-items: center; gap: 0.5rem;"><i data-lucide="check-circle" size="18"></i> Valid Account Response (200 OK)</h4>
+                <pre class="response">
+{
+    "status": "success",
+    "premium": false,
+    "storage": "2.0 GB",
+    "package": "NON-PREMIUM",
+    "country": "United States",
+    "dev": "@aftab_kabirr"
+}
+                </pre>
+
+                <h4 style="color: #FCA5A5; display: flex; align-items: center; gap: 0.5rem; margin-top: 1.5rem;"><i data-lucide="alert-triangle" size="18"></i> Invalid Credentials Response</h4>
+                <pre class="response">
+{
+    "message": "Incorrect Email OR Password",
+    "status": "error"
+}
+                </pre>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>© 2025 Aftab Kabir API Tools. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="scripts.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

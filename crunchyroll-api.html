@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crunchyroll Combo Checker - Tool Titan API</title>
+    <meta name="description" content="Documentation and REST API guide for Crunchyroll Combo Checker.">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="assets/css/crunchyroll-api.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="container nav-content">
+            <a href="index.html" class="logo">
+                <span class="main-logo">TOOL TITAN</span>
+                <span class="sub-logo">API</span>
+            </a>
+            <button class="hamburger-btn" onclick="toggleNav()" aria-label="Toggle Navigation">
+                <i data-lucide="menu"></i>
+            </button>
+            <div class="nav-links" id="nav-links">
+                <ul>
+                    <li><a href="index.html"><i data-lucide="home"></i> Home</a></li>
+                    <li><a href="about.html"><i data-lucide="info"></i> About</a></li>
+                    <li><a href="projects.html" class="active"><i data-lucide="grid"></i> Projects</a></li>
+                    <li><a href="contact.html"><i data-lucide="mail"></i> Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Section -->
+    <main class="container">
+        <section class="glass-card introduction" style="padding: 2.5rem; margin-bottom: 2.5rem;">
+            <div style="display: inline-flex; align-items: center; gap: 0.5rem; color: #F97316; font-weight: 600; margin-bottom: 1rem;">
+                <i data-lucide="tv"></i> MEDIA SUBSCRIPTION API
+            </div>
+            <h1 class="gradient-text">Crunchyroll Combo Checker API</h1>
+            <p>
+                The <b>Crunchyroll Combo Checker API</b> automated service verifies <b>Crunchyroll login credentials</b> in real-time. It returns rich account parameters including subscription tier, auto-renewal schedules, and verification status.
+            </p>
+
+            <h3 style="margin-top: 1.5rem; margin-bottom: 1rem; color: var(--text);">Feature Highlights</h3>
+            <ul style="max-width: 100%; margin-left: 0; list-style-type: none; padding-left: 0;">
+                <li style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;"><i data-lucide="check-circle-2" style="color: var(--success); flex-shrink: 0;"></i> Validate Crunchyroll credential pairs (email:password).</li>
+                <li style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;"><i data-lucide="calendar" style="color: var(--accent); flex-shrink: 0;"></i> Extract plan expiration dates, renewal amounts, and active trial indicators.</li>
+                <li style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;"><i data-lucide="shield-check" style="color: #A7F3D0; flex-shrink: 0;"></i> Reliable response formats with robust exception handshakes.</li>
+            </ul>
+
+            <div style="margin-top: 2rem;">
+                <p style="margin-bottom: 0.4rem; font-weight: 600; color: var(--text);"><i data-lucide="link"></i> Base URL:</p>
+                <div class="api-url-container">
+                    <code id="base-url">https://tooltitan.vercel.app/</code>
+                    <button class="copy-btn" onclick="copyToClipboard('#base-url')"><i data-lucide="copy" size="14"></i> Copy</button>
+                </div>
+
+                <p style="margin-bottom: 0.4rem; font-weight: 600; color: var(--text);"><i data-lucide="terminal"></i> Crunchyroll Endpoint URL:</p>
+                <div class="api-url-container">
+                    <code id="crunchy-url">https://tooltitan.vercel.app/crunchy?combo=email:password</code>
+                    <button class="copy-btn" onclick="copyToClipboard('#crunchy-url')"><i data-lucide="copy" size="14"></i> Copy</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="glass-card usage-info" style="padding: 2.5rem;">
+            <h2>How to Use the API</h2>
+            <p>Follow these standard HTTP GET instructions to query the Crunchyroll API:</p>
+            <ol style="margin-left: 1.25rem; margin-bottom: 2rem;">
+                <li>Format credentials as an <code>email:password</code> string.</li>
+                <li>Execute an HTTP GET request to the endpoint:</li>
+
+                <div class="api-url-container" style="margin: 1rem 0;">
+                    <code id="crunchy-url-copy">https://tooltitan.vercel.app/crunchy?combo=email:password</code>
+                    <button class="copy-btn" onclick="copyToClipboard('#crunchy-url-copy')"><i data-lucide="copy" size="14"></i> Copy</button>
+                </div>
+
+                <li>Inspect the structured subscription response payload.</li>
+            </ol>
+
+            <h3>Example Responses</h3>
+            <div class="response-section">
+                <h4 style="color: #6EE7B7; display: flex; align-items: center; gap: 0.5rem;"><i data-lucide="check-circle" size="18"></i> Successful Subscription Match (200 OK)</h4>
+                <pre class="response">
+{
+    "status": "success",
+    "email_verified": true,
+    "account_creation_date": "2021-03-06",
+    "subscription_name": "cr.ios.fanpack.monthly",
+    "currency": "",
+    "subscription_amount": "",
+    "effective_date": "2024-12-09T19:49:04Z",
+    "expiry_date": "09-12-2024",
+    "active_free_trial": "false",
+    "dev": "@aftab_kabirr"
+}
+                </pre>
+
+                <h4 style="color: #FBBF24; display: flex; align-items: center; gap: 0.5rem; margin-top: 1.5rem;"><i data-lucide="help-circle" size="18"></i> No Active Subscription</h4>
+                <pre class="response">
+{
+    "message": "No subscription found for this account.",
+    "status": "error"
+}
+                </pre>
+
+                <h4 style="color: #FCA5A5; display: flex; align-items: center; gap: 0.5rem; margin-top: 1.5rem;"><i data-lucide="alert-triangle" size="18"></i> Invalid Credentials</h4>
+                <pre class="response">
+{
+    "message": "Invalid Credentials.",
+    "status": "error"
+}
+                </pre>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>© 2025 Aftab Kabir API Tools. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="scripts.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

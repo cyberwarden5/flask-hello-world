@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Tool Titan API</title>
+    <meta name="description" content="Learn about Tool Titan API, our mission, developer tools, and scalable features.">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="container nav-content">
+            <a href="index.html" class="logo">
+                <span class="main-logo">TOOL TITAN</span>
+                <span class="sub-logo">API</span>
+            </a>
+            <button class="hamburger-btn" onclick="toggleNav()" aria-label="Toggle Navigation">
+                <i data-lucide="menu"></i>
+            </button>
+            <div class="nav-links" id="nav-links">
+                <ul>
+                    <li><a href="index.html"><i data-lucide="home"></i> Home</a></li>
+                    <li><a href="about.html" class="active"><i data-lucide="info"></i> About</a></li>
+                    <li><a href="projects.html"><i data-lucide="grid"></i> Projects</a></li>
+                    <li><a href="contact.html"><i data-lucide="mail"></i> Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- About Section -->
+    <main class="container">
+        <section class="about">
+            <h1 class="gradient-text">About Tool Titan API</h1>
+            <p>
+                Welcome to <b>Tool Titan API</b>! We provide high-performance, easy-to-use automation tools and AI services for developers to accelerate workflow build-outs.
+                Our endpoints are engineered for optimal speed, reliability, and security.
+            </p>
+        </section>
+
+        <section style="margin-top: 3rem;">
+            <h2 style="text-align: center; margin-bottom: 2rem;">What We Offer</h2>
+            
+            <div class="api-grid">
+                <div class="glass-card api-card">
+                    <div>
+                        <div style="color: var(--accent); margin-bottom: 1rem;"><i data-lucide="layers" size="32"></i></div>
+                        <h3>All-in-One APIs</h3>
+                        <p>Check account validity, generate creative AI content, and query live data endpoints with high availability.</p>
+                    </div>
+                </div>
+
+                <div class="glass-card api-card">
+                    <div>
+                        <div style="color: #A7F3D0; margin-bottom: 1rem;"><i data-lucide="key-round" size="32"></i></div>
+                        <h3>Easy Authentication</h3>
+                        <p>Simple parameter configurations and clear security models for zero-friction integration.</p>
+                    </div>
+                </div>
+
+                <div class="glass-card api-card">
+                    <div>
+                        <div style="color: #F472B6; margin-bottom: 1rem;"><i data-lucide="rocket" size="32"></i></div>
+                        <h3>Free & Unlimited Tools</h3>
+                        <p>Access our comprehensive suite of developer tools without rate throttling or hidden fees.</p>
+                    </div>
+                </div>
+
+                <div class="glass-card api-card">
+                    <div>
+                        <div style="color: #FBBF24; margin-bottom: 1rem;"><i data-lucide="terminal" size="32"></i></div>
+                        <h3>Developer-Friendly</h3>
+                        <p>Designed for scalability, low overhead, and straightforward implementation in any web stack.</p>
+                    </div>
+                </div>
+
+                <div class="glass-card api-card">
+                    <div>
+                        <div style="color: #60A5FA; margin-bottom: 1rem;"><i data-lucide="bar-chart-3" size="32"></i></div>
+                        <h3>Instant Data Access</h3>
+                        <p>Lighting-fast response times with standardized JSON schemas and descriptive error payloads.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="glass-card" style="margin-top: 4rem; padding: 3rem 2rem; text-align: center;">
+            <p style="font-size: 1.25rem; color: var(--text); max-width: 800px; margin: 0 auto 1.5rem;">
+                <b>Tool Titan API</b> is built to help developers deploy, integrate, and scale projects efficiently with reliable, cutting-edge services.
+            </p>
+            <a href="projects.html" class="btn">Explore API Projects <i data-lucide="arrow-right"></i></a>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>© 2025 Tool Titan API Tools. All Rights Reserved | Developed by Aftab Kabir</p>
+        </div>
+    </footer>
+
+    <script src="scripts.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

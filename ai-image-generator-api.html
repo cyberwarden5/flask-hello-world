@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Image Generator - Tool Titan API</title>
+    <meta name="description" content="Documentation and guide for AI Image Generator REST API.">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="assets/css/ai-image-generator-api.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="container nav-content">
+            <a href="index.html" class="logo">
+                <span class="main-logo">TOOL TITAN</span>
+                <span class="sub-logo">API</span>
+            </a>
+            <button class="hamburger-btn" onclick="toggleNav()" aria-label="Toggle Navigation">
+                <i data-lucide="menu"></i>
+            </button>
+
+            <div class="nav-links" id="nav-links">
+                <ul>
+                    <li><a href="index.html"><i data-lucide="home"></i> Home</a></li>
+                    <li><a href="about.html"><i data-lucide="info"></i> About</a></li>
+                    <li><a href="projects.html" class="active"><i data-lucide="grid"></i> Projects</a></li>
+                    <li><a href="contact.html"><i data-lucide="mail"></i> Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Section -->
+    <main class="container">
+        <section class="glass-card introduction" style="padding: 2.5rem; margin-bottom: 2.5rem;">
+            <div style="display: inline-flex; align-items: center; gap: 0.5rem; color: #EC4899; font-weight: 600; margin-bottom: 1rem;">
+                <i data-lucide="image"></i> GENERATIVE AI API
+            </div>
+            <h1 class="gradient-text">AI Image Generator API</h1>
+
+            <p style="margin-bottom: 1.5rem;">
+                The <b>AI Image Generator API</b> dynamically produces high-fidelity visual assets based on custom text prompts via cloud synthesis models.
+            </p>
+
+            <p style="margin-bottom: 0.4rem; font-weight: 600; color: var(--text);"><i data-lucide="link"></i> Base URL:</p>
+            <div class="api-url-container">
+                <code id="base-url">https://tooltitan.vercel.app/</code>
+                <button class="copy-btn" onclick="copyToClipboard('#base-url')"><i data-lucide="copy" size="14"></i> Copy</button>
+            </div>
+
+            <p style="margin-bottom: 0.4rem; font-weight: 600; color: var(--text);"><i data-lucide="terminal"></i> API Endpoint:</p>
+            <div class="api-url-container">
+                <code id="image-url">https://tooltitan.vercel.app/image?prompt=Your+prompt+here</code>
+                <button class="copy-btn" onclick="copyToClipboard('#image-url')"><i data-lucide="copy" size="14"></i> Copy</button>
+            </div>
+        </section>
+
+        <section class="glass-card api-info-section" style="padding: 2.5rem; margin-bottom: 2.5rem;">
+            <h2>How to Use the AI Image Generator API</h2>
+            <p>
+                Simply provide a descriptive text prompt of your target subject or art style in the query parameter, and the API will return a direct URL to the rendered image asset.
+            </p>
+
+            <h3 style="margin-top: 1.5rem; margin-bottom: 1rem;">Key Features</h3>
+            <ul style="max-width: 100%; margin-left: 0; list-style-type: none; padding-left: 0;">
+                <li style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;"><i data-lucide="infinity" style="color: var(--accent); flex-shrink: 0;"></i> <b>Unlimited Use</b>: Generate graphics on demand without strict quota limits.</li>
+                <li style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;"><i data-lucide="sparkles" style="color: #EC4899; flex-shrink: 0;"></i> <b>High-Quality Output</b>: Clear, detailed cloud-stored image URLs.</li>
+                <li style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;"><i data-lucide="code" style="color: var(--success); flex-shrink: 0;"></i> <b>Easy Integration</b>: Single HTTP GET request structure.</li>
+            </ul>
+
+            <h3 style="margin-top: 2rem;">How to Make an API Request</h3>
+            <p>Send an HTTP GET request containing your URL-encoded prompt string:</p>
+
+            <div class="api-url-container" style="margin: 1rem 0;">
+                <code id="image-url-request">https://tooltitan.vercel.app/image?prompt=Your+prompt+here</code>
+                <button class="copy-btn" onclick="copyToClipboard('#image-url-request')"><i data-lucide="copy" size="14"></i> Copy</button>
+            </div>
+
+            <h3 style="margin-top: 2rem;">Example Responses</h3>
+
+            <div class="response-section">
+                <h4 style="color: #6EE7B7; display: flex; align-items: center; gap: 0.5rem;"><i data-lucide="check-circle" size="18"></i> Success Payload</h4>
+                <pre class="response">{ "status": "success", "http_code": 200, "url": "https://storage.googleapis.com/image/..." }</pre>
+
+                <h4 style="color: #FCA5A5; display: flex; align-items: center; gap: 0.5rem; margin-top: 1.5rem;"><i data-lucide="alert-triangle" size="18"></i> Error Payload</h4>
+                <pre class="response">{ "message": "Invalid request or prompt", "status": "error" }</pre>
+            </div>
+
+            <h3 style="margin-top: 2rem;">Use Cases</h3>
+            <ul style="max-width: 100%; margin-left: 0; list-style-type: none; padding-left: 0;">
+                <li style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;"><i data-lucide="palette" style="color: var(--accent);"></i> Generate AI art and custom artwork for digital applications.</li>
+                <li style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;"><i data-lucide="layout" style="color: #FBBF24;"></i> Create tailored thumbnails, banner elements, or marketing graphics.</li>
+            </ul>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>© 2025 Aftab Kabir API Tools. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="scripts.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

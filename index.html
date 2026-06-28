@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToolTitan API - Next-Gen Developer Tools Platform</title>
+    <meta name="description" content="Empowering developers with high-performance tools, account automation APIs, and AI integrations.">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <!-- Loading Animation -->
+    <div class="loader"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="container nav-content">
+            <a href="index.html" class="logo">
+                <span class="main-logo">TOOL TITAN</span>
+                <span class="sub-logo">API</span>
+            </a>
+            <button class="hamburger-btn" onclick="toggleNav()" aria-label="Toggle Navigation">
+                <i data-lucide="menu"></i>
+            </button>
+            <div class="nav-links" id="nav-links">
+                <ul>
+                    <li><a href="index.html" class="active"><i data-lucide="home"></i> Home</a></li>
+                    <li><a href="about.html"><i data-lucide="info"></i> About</a></li>
+                    <li><a href="projects.html"><i data-lucide="grid"></i> Projects</a></li>
+                    <li><a href="contact.html"><i data-lucide="mail"></i> Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <main class="container">
+        <section class="hero">
+            <div class="hero-badge">
+                <i data-lucide="sparkles"></i> High-Performance Developer Suite
+            </div>
+            <h1 class="gradient-text">API Development Platform</h1>
+            <p>Empowering developers with efficient, scalable tools to build, test, and integrate APIs seamlessly into modern applications.</p>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 2rem;">
+                <a href="projects.html" class="btn">
+                    Explore Projects <i data-lucide="arrow-right"></i>
+                </a>
+                <a href="about.html" class="btn btn-secondary">
+                    Learn More <i data-lucide="book-open"></i>
+                </a>
+            </div>
+        </section>
+
+        <!-- Feature Grid Overview -->
+        <section style="margin-top: 4rem;">
+            <div class="api-grid">
+                <div class="glass-card api-card">
+                    <div>
+                        <div style="width: 48px; height: 48px; border-radius: 12px; background: rgba(79, 70, 229, 0.2); display: flex; align-items: center; justify-content: center; margin-bottom: 1.25rem; color: var(--accent);">
+                            <i data-lucide="zap"></i>
+                        </div>
+                        <h3>Ultra-Fast Responses</h3>
+                        <p>Built for speed and reliability, ensuring minimal latency for all automation and AI endpoints.</p>
+                    </div>
+                </div>
+                <div class="glass-card api-card">
+                    <div>
+                        <div style="width: 48px; height: 48px; border-radius: 12px; background: rgba(124, 58, 237, 0.2); display: flex; align-items: center; justify-content: center; margin-bottom: 1.25rem; color: #C084FC;">
+                            <i data-lucide="shield-check"></i>
+                        </div>
+                        <h3>Secure Authentication</h3>
+                        <p>Robust standards ensuring your API queries and credential checks remain encrypted and protected.</p>
+                    </div>
+                </div>
+                <div class="glass-card api-card">
+                    <div>
+                        <div style="width: 48px; height: 48px; border-radius: 12px; background: rgba(6, 182, 212, 0.2); display: flex; align-items: center; justify-content: center; margin-bottom: 1.25rem; color: var(--accent);">
+                            <i data-lucide="code-2"></i>
+                        </div>
+                        <h3>Developer-First JSON</h3>
+                        <p>Clean, structured JSON outputs designed for instant consumption in any programming language.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Tool Titan API Tools. All Rights Reserved. | Designed by Aftab Kabir</p>
+        </div>
+    </footer>
+
+    <script src="scripts.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

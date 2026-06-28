@@ -1,0 +1,6 @@
+/* Sub-stylesheet for Projects Page - Inherits from root styles.css */
+/* Cleaned up duplicate rules to preserve unified SaaS visual identity */
+
+.api-grid {
+    padding-top: 1rem;
+}
