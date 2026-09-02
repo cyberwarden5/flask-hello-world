@@ -150,6 +150,43 @@ def crunchyroll_check():
 
 
 
+@app.route("/fake", methods=["GET"])
+def fake_profile():
+    target_url = "https://randomprofile.com/usa-random-names"
+
+    try:
+        scraper = cloudscraper.create_scraper(
+            browser={
+                'browser': 'chrome',
+                'platform': 'windows',
+                'desktop': True
+            }
+        )
+
+        response = scraper.get(target_url, timeout=15)
+
+        if response.status_code == 200:
+            result = {
+                "status": "success",
+                "content": response.text,
+                "dev": "@Aftabkabir"
+            }
+            return jsonify(result), 200
+        else:
+            return jsonify({
+                "status": "error",
+                "code": response.status_code,
+                "message": "Failed to retrieve page.",
+                "dev": "@Aftabkabir"
+            }), response.status_code
+
+    except Exception as e:
+        return jsonify({
+            "status": "error",
+            "message": str(e),
+            "dev": "@Aftabkabir"
+        }), 500
+
 @app.route("/seedr", methods=["GET"])
 def seedr_check():
     combo = request.args.get("combo")
