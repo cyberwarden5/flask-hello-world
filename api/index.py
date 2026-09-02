@@ -1,15 +1,16 @@
-import requests
-from flask import Flask, request, jsonify
-import json
 import re
+import html
+import json
 import uuid
 import urllib.parse
+import requests
 import cloudscraper
 
-# import time
+from bs4 import BeautifulSoup
+from flask import Flask, request, jsonify
+
 
 app = Flask(__name__)
-
 
 @app.route("/crunchyroll", methods=["GET"])
 def crunchyroll_check():
@@ -150,6 +151,15 @@ def crunchyroll_check():
 
 
 
+def extract_email(html_text):
+    """Decodes Joomla's protected email script if present."""
+    match = re.search(r"addy[0-9a-fA-F]+\s*=\s*['\"]([^'\"]+)['\"];", html_text)
+    if match:
+        raw_encoded = match.group(1)
+        # Decode HTML entities like &#105; -> i
+        return html.unescape(raw_encoded)
+    return ""
+
 @app.route("/fake", methods=["GET"])
 def fake_profile():
     target_url = "https://randomprofile.com/usa-random-names"
@@ -165,14 +175,7 @@ def fake_profile():
 
         response = scraper.get(target_url, timeout=15)
 
-        if response.status_code == 200:
-            result = {
-                "status": "success",
-                "content": response.text,
-                "dev": "@Aftabkabir"
-            }
-            return jsonify(result), 200
-        else:
+        if response.status_code != 200:
             return jsonify({
                 "status": "error",
                 "code": response.status_code,
@@ -180,12 +183,76 @@ def fake_profile():
                 "dev": "@Aftabkabir"
             }), response.status_code
 
+        soup = BeautifulSoup(response.text, "html.parser")
+
+        # Extract all key-value pairs from the profile tables
+        raw_data = {}
+        for tr in soup.find_all("tr"):
+            tds = tr.find_all("td")
+            if len(tds) == 2:
+                key = tds[0].get_text(strip=True).rstrip(":")
+                # If the value contains the cloaked email script, decode it
+                if "cloak" in str(tds[1]):
+                    val = extract_email(str(tds[1]))
+                else:
+                    val = tds[1].get_text(strip=True)
+                if key:
+                    raw_data[key] = val
+
+        # Format into clean structured sections
+        details = {
+            "personal_info": {
+                "User ID": raw_data.get("User ID", ""),
+                "First Name": raw_data.get("First Name", ""),
+                "Surname": raw_data.get("Surname", ""),
+                "First Name": raw_data.get("First Name (transliteration)", ""),
+                "Surname": raw_data.get("Surname (transliteration)", ""),
+                "Gender": raw_data.get("Gender", ""),
+                "Birthday": raw_data.get("Birthday", ""),
+                "Age": raw_data.get("Age", ""),
+                "Country": raw_data.get("Country", ""),
+                "Country ISO3": raw_data.get("Country ISO3", ""),
+                "Passport Number": raw_data.get("Passport Number", ""),
+                "Social Security / National Insurance": raw_data.get("Social Security / National Insurance", "")
+            },
+            "contact_and_address": {
+                "Phone Number": raw_data.get("Phone Number", ""),
+                "Address": raw_data.get("Address", ""),
+                "Transliterated Address": raw_data.get("Transliterated Address", ""),
+                "Zip Code": raw_data.get("Zip Code", "")
+            },
+            "account_info": {
+                "Email": raw_data.get("Email", ""),
+                "Username": raw_data.get("Username", ""),
+                "Password": raw_data.get("Password", ""),
+                "Date of registration": raw_data.get("Date of registration", ""),
+                "Occupation": raw_data.get("Occupation", "")
+            },
+            "financial_info": {
+                "Mother's Maiden Name": raw_data.get("Mother's Maiden Name", ""),
+                "CC Type": raw_data.get("CC Type", ""),
+                "CC Number": raw_data.get("CC Number", ""),
+                "CVV2": raw_data.get("CVV2", ""),
+                "CC Expiration Date": raw_data.get("CC Expiration Date", ""),
+                "Account Number": raw_data.get("Account Number", ""),
+                "Bank Code": raw_data.get("Bank Code", ""),
+                "Bank Name": raw_data.get("Bank Name", "")
+            }
+        }
+
+        return jsonify({
+            "status": "success",
+            "details": details,
+            "dev": "@Aftabkabir"
+        }), 200
+
     except Exception as e:
         return jsonify({
             "status": "error",
             "message": str(e),
             "dev": "@Aftabkabir"
         }), 500
+
 
 @app.route("/seedr", methods=["GET"])
 def seedr_check():
