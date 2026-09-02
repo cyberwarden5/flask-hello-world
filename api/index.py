@@ -149,16 +149,48 @@ def crunchyroll_check():
         return jsonify({"status": "error", "message": f"An error occurred: {str(e)}"})
 
 
-
-
-def extract_email(html_text):
-    """Decodes Joomla's protected email script if present."""
-    match = re.search(r"addy[0-9a-fA-F]+\s*=\s*['\"]([^'\"]+)['\"];", html_text)
-    if match:
-        raw_encoded = match.group(1)
-        # Decode HTML entities like &#105; -> i
-        return html.unescape(raw_encoded)
+def extract_email(html_snippet):
+    """Extracts and resolves Joomla cloaked email javascript variables."""
+    # Collect all addy assignments and unescape HTML numeric codes
+    matches = re.findall(r"addy\w+\s*=\s*['\"]([^'\"]+)['\"];", html_snippet)
+    if matches:
+        full_email = "".join(matches)
+        return html.unescape(full_email)
+    # Fallback to general regex search if assignment variable varies
+    direct_match = re.search(r"var addy_text\w+\s*=\s*'([^']+)'", html_snippet)
+    if direct_match:
+        return html.unescape(direct_match.group(1).replace("&#64;", "@").replace("&#46;", "."))
     return ""
+
+def parse_us_address(full_address):
+    """
+    Splits randomprofile addresses formatted like:
+    '1155, Klamath Way, La Conner, Skagit, Washington'
+    """
+    if not full_address:
+        return {"street": "", "city": "", "state": ""}
+    
+    parts = [p.strip() for p in full_address.split(",") if p.strip()]
+    
+    # Typical structure: [house_no, street_name, city, (optional_county), state]
+    if len(parts) >= 4:
+        street = f"{parts[0]} {parts[1]}"
+        city = parts[2]
+        state = parts[-1]  # Last segment is the state
+    elif len(parts) == 3:
+        street = parts[0]
+        city = parts[1]
+        state = parts[2]
+    else:
+        street = full_address
+        city = ""
+        state = ""
+        
+    return {
+        "street": street,
+        "city": city,
+        "state": state
+    }
 
 @app.route("/fake", methods=["GET"])
 def fake_profile():
@@ -185,28 +217,38 @@ def fake_profile():
 
         soup = BeautifulSoup(response.text, "html.parser")
 
-        # Extract all key-value pairs from the profile tables
+        # Map all label-value table cells
         raw_data = {}
         for tr in soup.find_all("tr"):
             tds = tr.find_all("td")
             if len(tds) == 2:
                 key = tds[0].get_text(strip=True).rstrip(":")
-                # If the value contains the cloaked email script, decode it
-                if "cloak" in str(tds[1]):
-                    val = extract_email(str(tds[1]))
+                val_td = tds[1]
+                
+                # Check for hidden email logic
+                if "cloak" in str(val_td):
+                    val = extract_email(str(val_td))
                 else:
-                    val = tds[1].get_text(strip=True)
+                    val = val_td.get_text(strip=True)
+                
                 if key:
                     raw_data[key] = val
 
-        # Format into clean structured sections
+        # Clean address into discrete fields
+        raw_addr = raw_data.get("Address", "")
+        addr_components = parse_us_address(raw_addr)
+
+        # Clean phone number (strip whitespace)
+        clean_phone = raw_data.get("Phone Number", "").replace(" ", "")
+
+        # Assemble into requested hierarchical order
         details = {
             "personal_info": {
                 "User ID": raw_data.get("User ID", ""),
                 "First Name": raw_data.get("First Name", ""),
                 "Surname": raw_data.get("Surname", ""),
-                "First Name": raw_data.get("First Name (transliteration)", ""),
-                "Surname": raw_data.get("Surname (transliteration)", ""),
+                "First Name (transliteration)": raw_data.get("First Name (transliteration)", ""),
+                "Surname (transliteration)": raw_data.get("Surname (transliteration)", ""),
                 "Gender": raw_data.get("Gender", ""),
                 "Birthday": raw_data.get("Birthday", ""),
                 "Age": raw_data.get("Age", ""),
@@ -215,21 +257,14 @@ def fake_profile():
                 "Passport Number": raw_data.get("Passport Number", ""),
                 "Social Security / National Insurance": raw_data.get("Social Security / National Insurance", "")
             },
-            "contact_and_address": {
-                "Phone Number": raw_data.get("Phone Number", ""),
-                "Address": raw_data.get("Address", ""),
-                "Transliterated Address": raw_data.get("Transliterated Address", ""),
-                "Zip Code": raw_data.get("Zip Code", "")
+            "address_info": {
+                "Street": addr_components["street"],
+                "City": addr_components["city"],
+                "State": addr_components["state"],
+                "Zip Code": raw_data.get("Zip Code", ""),
+                "Phone Number": clean_phone
             },
-            "account_info": {
-                "Email": raw_data.get("Email", ""),
-                "Username": raw_data.get("Username", ""),
-                "Password": raw_data.get("Password", ""),
-                "Date of registration": raw_data.get("Date of registration", ""),
-                "Occupation": raw_data.get("Occupation", "")
-            },
-            "financial_info": {
-                "Mother's Maiden Name": raw_data.get("Mother's Maiden Name", ""),
+            "payment_info": {
                 "CC Type": raw_data.get("CC Type", ""),
                 "CC Number": raw_data.get("CC Number", ""),
                 "CVV2": raw_data.get("CVV2", ""),
@@ -237,8 +272,18 @@ def fake_profile():
                 "Account Number": raw_data.get("Account Number", ""),
                 "Bank Code": raw_data.get("Bank Code", ""),
                 "Bank Name": raw_data.get("Bank Name", "")
+            },
+            "account_info": {
+                "Username": raw_data.get("Username", ""),
+                "Password": raw_data.get("Password", ""),
+                "Email": raw_data.get("Email", ""),
+                "Occupation": raw_data.get("Occupation", ""),
+                "Date of registration": raw_data.get("Date of registration", "")
             }
         }
+
+        # Flask by default sorts JSON keys alphabetically; ensure original order is kept
+        app.config['JSON_SORT_KEYS'] = False
 
         return jsonify({
             "status": "success",
@@ -254,6 +299,8 @@ def fake_profile():
         }), 500
 
 
+
+        
 @app.route("/seedr", methods=["GET"])
 def seedr_check():
     combo = request.args.get("combo")
